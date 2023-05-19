@@ -11,6 +11,7 @@ import java.time.Duration;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
+
 public class RentPageLocators {
 
     WebDriver driver;
@@ -52,47 +53,55 @@ public class RentPageLocators {
     /* Методы для работы с элементами страницы аренды */
 
     // Ожидание загрузки страницы и ввод даты доставки
-    public void inputRentalDate(String date) {
+    public RentPageLocators inputRentalDate(String date) {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(rentalDate));
         driver.findElement(rentalDate).sendKeys(date);
         driver.findElement(rentalDate).sendKeys(Keys.ENTER);
+        return this;
     }
 
     // Выбор срока аренды
-    public void inputRentalTime() {
+    public RentPageLocators inputRentalTime() {
         driver.findElement(rentalPeriod).click();
         driver.findElement(rentalTime).click();
+        return this;
     }
 
     // Выбор цвета самоката "Черный жемчуг"
-    public void clickCheckBoxBlackPearl() {
+    public RentPageLocators clickCheckBoxBlackPearl() {
         driver.findElement(checkBoxBlackPearl).click();
+        return this;
     }
 
     // Выбор цвета самоката "Серая безысходность"
-    public void clickCheckBoxGreyHopelessness() {
+    public RentPageLocators clickCheckBoxGreyHopelessness() {
         driver.findElement(checkBoxGreyHopelessness).click();
+        return this;
     }
 
     // Ввод комментария для курьера
-    public void inputCommentForCourier(String comment) {
+    public RentPageLocators inputCommentForCourier(String comment) {
         driver.findElement(commentForCourier).sendKeys(comment);
+        return this;
     }
 
     // Нажатие кнопки "Заказать"
-    public void clickOrderButton() {
+    public RentPageLocators clickOrderButton() {
         driver.findElement(orderButton).click();
+        return this;
     }
 
     // Нажатие кнопки "Да" в поп-апе "Хотите оформить заказ?"
-    public void clickYesButton() {
+    public RentPageLocators clickYesButton() {
         driver.findElement(yesButton).click();
+        return this;
     }
 
     // Поп-ап "Заказ оформлен" появился
-    public void modalWindowOrderDisplayed() {
+    public RentPageLocators modalWindowOrderDisplayed() {
         String ModalWindowOrderDisplayed = driver.findElement(modalWindowOrder).getText();
         Assert.assertThat(ModalWindowOrderDisplayed, containsString("Заказ оформлен"));
+        return this;
     }
 }

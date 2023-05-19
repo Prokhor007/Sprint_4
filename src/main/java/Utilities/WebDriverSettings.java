@@ -4,12 +4,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-
-import java.io.File;
 
 public class WebDriverSettings {
 
@@ -17,18 +16,19 @@ public class WebDriverSettings {
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.http.factory", "jdk-http-client");
-        ChromeDriverService service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File("/Users/prokhorenkomaks/Documents/projects/chromedriver"))
-                .build();
-        driver = new ChromeDriver(service);
+        /* ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*, --no-sandbox", "--headless", "--disable-dev-shm-usage");
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver(options); */
 
-     /* FirefoxOptions options = new FirefoxOptions();
+            FirefoxOptions options = new FirefoxOptions();
         options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         WebDriverManager.firefoxdriver().setup();
-        driver = new FirefoxDriver(options); */
+        driver = new FirefoxDriver(options);
     }
 
     @After
-    public void tearDown() { driver.quit(); }
+    public void tearDown() {
+            driver.quit();
+        }
 }

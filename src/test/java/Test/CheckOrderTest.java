@@ -5,73 +5,51 @@ import Locators.OrderPageLocators;
 import Locators.RentPageLocators;
 import Utilities.WebDriverSettings;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.openqa.selenium.By;
 
+@RunWith(Parameterized.class)
 public class CheckOrderTest extends WebDriverSettings {
+    private By orderButton;
 
-    // Заказ через кнопку сверху
-    @Test
-    public void OrderByOrderButtonUp() {
-
-        // Открытие сайта и переход на страницу заказа
-        MainPageLocators objMainPage = new MainPageLocators(driver);
-
-        objMainPage.openSite();
-        objMainPage.clickCookieButton();
-        objMainPage.clickOrderButtonUp();
-
-        // Заполнение полей страницы заказа
-        OrderPageLocators objOrderPage = new OrderPageLocators(driver);
-
-        objOrderPage.inputFirstName("Иванов");
-        objOrderPage.inputLastName("Иван");
-        objOrderPage.inputDeliveryAddress("Москва, Ленина 1");
-        objOrderPage.selectMetroStation("Сокол");
-        objOrderPage.inputPhoneNumber("79999999999");
-        objOrderPage.clickNextButton();
-
-        // Заполнение полей страницы аренды
-        RentPageLocators objRentPage = new RentPageLocators(driver);
-
-        objRentPage.inputRentalDate("12.12.2023");
-        objRentPage.inputRentalTime();
-        objRentPage.clickCheckBoxBlackPearl();
-        objRentPage.inputCommentForCourier("Тестируем страницу");
-        objRentPage.clickOrderButton();
-        objRentPage.clickYesButton();
-        objRentPage.modalWindowOrderDisplayed();
+    public CheckOrderTest(By orderButton) {
+        this.orderButton = orderButton;
+    }
+    // Тестовые данные
+    @Parameterized.Parameters
+    public static  Object[][] getOrderButton() {
+        return new Object[][]{
+                new By[]{MainPageLocators.orderButtonUp},
+                new By[]{MainPageLocators.orderButtonDown}};
     }
 
-    // Заказ через кнопку снизу
     @Test
-    public void OrderByOrderButtonDown() {
+    public void orderTest() {
 
         // Открытие сайта и переход на страницу заказа
-        MainPageLocators objMainPage = new MainPageLocators(driver);
-
-        objMainPage.openSite();
-        objMainPage.clickCookieButton();
-        objMainPage.scrollPageToOrderButtonDown();
-        objMainPage.clickOrderButtonDown();
+        new MainPageLocators(driver)
+            .openSite()
+            .clickCookieButton()
+            .clickOrderButton(orderButton);
 
         // Заполнение полей страницы заказа
-        OrderPageLocators objOrderPage = new OrderPageLocators(driver);
-
-        objOrderPage.inputFirstName("Петров");
-        objOrderPage.inputLastName("Петр");
-        objOrderPage.inputDeliveryAddress("Москва, Пушкина 777");
-        objOrderPage.selectMetroStation("Динамо");
-        objOrderPage.inputPhoneNumber("77777777777");
-        objOrderPage.clickNextButton();
+        new OrderPageLocators(driver)
+                .inputFirstName("Иванов")
+                .inputLastName("Иван")
+                .inputDeliveryAddress("Москва, Ленина 1")
+                .selectMetroStation("Сокол")
+                .inputPhoneNumber("79999999999")
+                .clickNextButton();
 
         // Заполнение полей страницы аренды
-        RentPageLocators objRentPage = new RentPageLocators(driver);
-
-        objRentPage.inputRentalDate("05.05.2024");
-        objRentPage.inputRentalTime();
-        objRentPage.clickCheckBoxGreyHopelessness();
-        objRentPage.inputCommentForCourier("Снова тестируем страницу");
-        objRentPage.clickOrderButton();
-        objRentPage.clickYesButton();
-        objRentPage.modalWindowOrderDisplayed();
+        new RentPageLocators(driver)
+                .inputRentalDate("12.12.2023")
+                .inputRentalTime()
+                .clickCheckBoxBlackPearl()
+                .inputCommentForCourier("Тестируем страницу")
+                .clickOrderButton()
+                .clickYesButton()
+                .modalWindowOrderDisplayed();
     }
 }

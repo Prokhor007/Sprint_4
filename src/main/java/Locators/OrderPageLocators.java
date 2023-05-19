@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class OrderPageLocators {
 
-    WebDriver driver;
+    private WebDriver driver;
 
     // Поле ввода "Имя"
     private By clientFirstName = By.xpath(".//input[@placeholder='* Имя']");
@@ -35,34 +35,40 @@ public class OrderPageLocators {
     /* Методы для работы с элементами страницы заказа */
 
     // Ввод имени
-    public void inputFirstName(String firstName) {
+    public OrderPageLocators inputFirstName(String firstName) {
         driver.findElement(clientFirstName).sendKeys(firstName);
+        return this;
     }
 
     // Ввод фамилии
-    public void inputLastName(String lastName) {
+    public OrderPageLocators inputLastName(String lastName) {
         driver.findElement(clientLastName).sendKeys(lastName);
+        return this;
     }
 
     // Ввод адреса доставки
-    public void inputDeliveryAddress(String address) {
+    public OrderPageLocators inputDeliveryAddress(String address) {
         driver.findElement(deliveryAddress).sendKeys(address);
+        return this;
     }
 
     // Выбор станции метро
-    public void selectMetroStation(String chooseMetroStation) {
+    public OrderPageLocators selectMetroStation(String chooseMetroStation) {
         driver.findElement(metroStation).click();
         driver.findElement(metroStation).sendKeys(chooseMetroStation);
         driver.findElement(metroStation).sendKeys(Keys.DOWN,Keys.ENTER);
+        return this;
     }
 
     // Ввод номера телефона
-    public void inputPhoneNumber(String phone) {
+    public OrderPageLocators inputPhoneNumber(String phone) {
         driver.findElement(phoneNumber).sendKeys(phone);
+        return this;
     }
 
     // Нажать кнопку "Далее"
-    public void  clickNextButton() {
+    public OrderPageLocators  clickNextButton() {
         driver.findElement(nextButton).click();
+        return this;
     }
 }
